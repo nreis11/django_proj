@@ -48,3 +48,11 @@ def get_queryset(self) -> QuerySet[Any]:
     user = get_object_or_404(User, username=self.kwargs.get("username"))
     return Post.objects.filter(author=user).order_by("-date_posted")
 ```
+
+### Env Variables
+
+To add environment variables, install environ
+
+```
+pip install django-environ
+```
