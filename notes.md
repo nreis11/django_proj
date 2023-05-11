@@ -27,3 +27,24 @@ if settings.DEBUG:
 
 It's like a dispatch once a condition is met. Code is not straightforward. Refer to documentation.
 In this case, a default profile pic was added when a user was created.
+
+### Views
+
+Class based views add more built in functionality.
+Example:
+
+```
+class PostListView(ListView):
+model = Post
+template_name = "blog/home.html"
+context_object_name = "posts"
+ordering = ["-date_posted"]
+```
+
+You can override the default query set using a child method. In this case, we are filtering posts by user.
+
+```
+def get_queryset(self) -> QuerySet[Any]:
+    user = get_object_or_404(User, username=self.kwargs.get("username"))
+    return Post.objects.filter(author=user).order_by("-date_posted")
+```
